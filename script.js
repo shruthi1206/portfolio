@@ -1,21 +1,52 @@
-const faders = document.querySelectorAll('.fade');
+document.addEventListener("DOMContentLoaded", () => {
 
-window.addEventListener('scroll', () => {
-    faders.forEach(el => {
-        if (el.getBoundingClientRect().top < window.innerHeight - 100) {
-            el.classList.add('show');
+```
+// Typing animation
+const typingElement = document.querySelector(".typing");
+const greeting = "Hi, I'm Medipally Shruthi 👋";
+
+if (typingElement) {
+    let index = 0;
+
+    function typeGreeting() {
+        if (index < greeting.length) {
+            typingElement.textContent += greeting.charAt(index);
+            index++;
+
+            setTimeout(typeGreeting, 85);
         }
-    });
-});
-
-const text = "Hi, I'm Medipally Shruthi 👋";
-let i = 0;
-
-function typing() {
-    if (i < text.length) {
-        document.querySelector(".typing").innerHTML += text.charAt(i);
-        i++;
-        setTimeout(typing, 100);
     }
+
+    typeGreeting();
 }
-typing();
+
+// Reveal sections as the visitor scrolls
+const sections = document.querySelectorAll(".fade");
+
+if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+        (entries, currentObserver) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                    currentObserver.unobserve(entry.target);
+                }
+            });
+        },
+        {
+            threshold: 0.08
+        }
+    );
+
+    sections.forEach((section) => {
+        observer.observe(section);
+    });
+} else {
+    // Fallback for older browsers
+    sections.forEach((section) => {
+        section.classList.add("show");
+    });
+}
+```
+
+});
