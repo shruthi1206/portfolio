@@ -1,6 +1,7 @@
 ```javascript
 document.addEventListener("DOMContentLoaded", function () {
-    // Animated typing effect
+
+    // 1. Animated typing effect for your name
     const typingElement = document.querySelector(".typing");
     const text = "Hi, I'm Medipally Shruthi 👋";
     let index = 0;
@@ -19,11 +20,32 @@ document.addEventListener("DOMContentLoaded", function () {
         typeText();
     }
 
-    // Reveal portfolio sections
+    // 2. Make all portfolio sections visible
     const sections = document.querySelectorAll(".fade");
 
     sections.forEach(function (section) {
         section.classList.add("show");
     });
+
+    // 3. Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+        link.addEventListener("click", function (event) {
+            const targetId = this.getAttribute("href");
+
+            if (targetId && targetId.length > 1) {
+                const target = document.querySelector(targetId);
+
+                if (target) {
+                    event.preventDefault();
+
+                    target.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+                }
+            }
+        });
+    });
+
 });
 ```
