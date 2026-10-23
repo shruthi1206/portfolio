@@ -1,52 +1,29 @@
-document.addEventListener("DOMContentLoaded", () => {
-
-```
-// Typing animation
-const typingElement = document.querySelector(".typing");
-const greeting = "Hi, I'm Medipally Shruthi 👋";
-
-if (typingElement) {
+```javascript
+document.addEventListener("DOMContentLoaded", function () {
+    // Animated typing effect
+    const typingElement = document.querySelector(".typing");
+    const text = "Hi, I'm Medipally Shruthi 👋";
     let index = 0;
 
-    function typeGreeting() {
-        if (index < greeting.length) {
-            typingElement.textContent += greeting.charAt(index);
-            index++;
+    if (typingElement) {
+        typingElement.textContent = "";
 
-            setTimeout(typeGreeting, 85);
+        function typeText() {
+            if (index < text.length) {
+                typingElement.textContent += text.charAt(index);
+                index++;
+                setTimeout(typeText, 100);
+            }
         }
+
+        typeText();
     }
 
-    typeGreeting();
-}
+    // Reveal portfolio sections
+    const sections = document.querySelectorAll(".fade");
 
-// Reveal sections as the visitor scrolls
-const sections = document.querySelectorAll(".fade");
-
-if ("IntersectionObserver" in window) {
-    const observer = new IntersectionObserver(
-        (entries, currentObserver) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("show");
-                    currentObserver.unobserve(entry.target);
-                }
-            });
-        },
-        {
-            threshold: 0.08
-        }
-    );
-
-    sections.forEach((section) => {
-        observer.observe(section);
-    });
-} else {
-    // Fallback for older browsers
-    sections.forEach((section) => {
+    sections.forEach(function (section) {
         section.classList.add("show");
     });
-}
-```
-
 });
+```
